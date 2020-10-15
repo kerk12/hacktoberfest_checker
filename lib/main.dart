@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktoberfest_checker/app.dart';
+import 'package:hacktoberfest_checker/blocs/home_screen/home_screen_bloc.dart';
+import 'package:hacktoberfest_checker/blocs/splash/splash_bloc.dart';
+import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
 import 'package:hacktoberfest_checker/screens/home_screen.dart';
 import 'package:hacktoberfest_checker/screens/set_user.dart';
 
 void main() {
-  runApp(HacktoberfestChecker());
+
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<SplashBloc>(
+          create: (context) {
+            return SplashBloc();
+          },
+        ),
+        BlocProvider<UserdataBloc>(
+          create: (context) {
+            return UserdataBloc();
+          },
+        ),
+        BlocProvider<HomeScreenBloc>(
+          create: (context) {
+            return HomeScreenBloc();
+          },
+        )
+      ],
+      child: HacktoberfestChecker()
+    )
+  );
 }
 
 class HacktoberfestChecker extends StatelessWidget {
