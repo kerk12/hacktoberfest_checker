@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hacktoberfest_checker/blocs/home_screen/home_screen_bloc.dart';
 import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
 import 'package:hacktoberfest_checker/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +62,19 @@ class _SetUserScreenState extends State<SetUserScreen> {
                               hintText: "Username (eg. kerk12)",
                               labelText: "Username"
                           ),
+                          // TODO Check if username is empty
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: (state is UserDataError && state.error == UserDataErrorType.userNotFound) ? 10 : 0,
+                        ),
+                        Opacity(
+                          child: Text("Invalid username provided",
+                            style: TextStyle(
+                              color: Colors.red
+                            )
+                          ),
+                          opacity: (state is UserDataError && state.error == UserDataErrorType.userNotFound) ? 1 : 0,
                         ),
                         SizedBox(
                           width: double.infinity,
@@ -70,11 +82,14 @@ class _SetUserScreenState extends State<SetUserScreen> {
                         ),
                         RaisedButton.icon(
                           onPressed:() async {
+                            if (state is UserDataLoading)
+                              return;
                             if (_formKey.currentState.validate()){
                               final userdatabloc = BlocProvider.of<UserdataBloc>(context);
                               userdatabloc.add(RequestSetUser(username:_usernameController.value.text));
                             }
                           },
+
                           color: Colors.blue,
                           icon: Icon(Icons.save),
                           label: Text("Set"),

@@ -16,7 +16,11 @@ class RequestSetUser extends UserdataEvent {
 
 class SetUser extends UserdataEvent {
   User user;
-  SetUser(this.user);
+  List<PullRequest> prs;
+  SetUser({
+    @required this.user,
+    @required this.prs
+  });
 
   @override
   List<Object> get props => [user];

@@ -33,6 +33,7 @@ class PullRequest {
     final DateTime maturingDt = getMatureDate();
     final DateTime now = DateTime.now().toUtc();
     Duration diff = now.difference(maturingDt);
+    print(diff.inSeconds);
     return diff.inSeconds > 0;
   }
 }

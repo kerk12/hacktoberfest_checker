@@ -44,6 +44,8 @@ class GitHubService {
         belongsToHFRepo = await getBelongsToHFRepo(repoData["repoOwner"], repoData["repoName"]);
       }
 
+      DateTime closedAt = DateTime.parse(pr["closed_at"]);
+
       prs.add(PullRequest(
           prUrl: pr["html_url"],
           createdAt: DateTime.parse(pr["created_at"]),
@@ -51,6 +53,7 @@ class GitHubService {
               ? PullRequestState.closed
               : PullRequestState.open,
           labels: labels,
+          closedAt: closedAt,
           belongsToHFRepo: belongsToHFRepo));
     }
     return prs;

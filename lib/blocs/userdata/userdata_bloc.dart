@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hacktoberfest_checker/models/pull_request.dart';
 import 'package:hacktoberfest_checker/models/user.dart';
 import 'package:hacktoberfest_checker/services/github.dart';
 
@@ -19,10 +20,16 @@ class UserdataBloc extends Bloc<UserdataEvent, UserDataState> {
     if (event is RequestSetUser) {
       yield UserDataLoading();
       GitHubService ghs = GitHubService(event.username);
-      User u = await ghs.getUserData();
-      this.add(SetUser(u));
+      try {
+        User u = await ghs.getUserData();
+        List<PullRequest> prs = await ghs.getPRs();
+        yield UserDataLoaded(user: u, prs: prs);
+      } on InvalidUserException {
+        yield UserDataError(UserDataErrorType.userNotFound);
+      }
+
     }
     if (event is SetUser)
-      yield UserDataLoaded(user: event.user);
+      yield UserDataLoaded(user: event.user, prs: event.prs);
   }
 }
