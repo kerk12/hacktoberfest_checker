@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hacktoberfest_checker/app.dart';
 import 'package:hacktoberfest_checker/blocs/splash/splash_bloc.dart';
 import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
 import 'package:hacktoberfest_checker/screens/home_screen.dart';
 import 'package:hacktoberfest_checker/screens/set_user.dart';
+import 'package:hacktoberfest_checker/screens/splash_screen.dart';
 
 void main() {
 
@@ -55,7 +55,7 @@ class HacktoberfestChecker extends StatelessWidget {
       ),
       initialRoute: "/splash",
       routes: {
-        "/splash": (context) => HomePage(),
+        "/splash": (context) => SplashScreen(),
         "/": (context) => HomeScreen(),
         "/setUser": (context) => SetUserScreen(),
         // "/setUser"

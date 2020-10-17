@@ -37,7 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       },
       child: Scaffold(
-        body: Container(),
+        body: Container(
+          // TODO Make a proper splash screen.
+          child: Center(child: Text("This is where the Splash Screen should go.")),
+        ),
       ),
     );
   }

@@ -28,6 +28,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           )
+          // TODO Add a "change user" button.
+          // The button should redirect to the SetUserScreen and remove the old username from SP.
         ],
       ),
       body: BlocBuilder<UserdataBloc, UserDataState>(

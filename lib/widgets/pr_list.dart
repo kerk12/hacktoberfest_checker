@@ -45,6 +45,7 @@ class _PRListItem extends StatelessWidget {
     return Card(
       child: ListTile(
         // TODO Add Repo Image
+        // TODO On Click, open up a browser window and show the PR to the user.
         title: Text(pullRequest.prUrl),
         subtitle: Row(
           children: [
