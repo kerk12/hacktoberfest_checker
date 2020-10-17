@@ -69,10 +69,10 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
       indicatedPRs = completedPRs;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-      height: MediaQuery
-          .of(context)
-          .size
-          .height * 0.15,
+      // height: MediaQuery
+      //     .of(context)
+      //     .size
+      //     .height * 0.15,
       width: MediaQuery
           .of(context)
           .size
@@ -81,7 +81,7 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
           vertical: MediaQuery
               .of(context)
               .size
-              .height * 0.03,
+              .height * 0.02,
           horizontal: MediaQuery
               .of(context)
               .size
@@ -110,7 +110,7 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
             ),
           ),
           Flexible(
-              flex: 1,
+              flex: 2,
               child: Center(child: Text(completedPRsText))
           )
         ],

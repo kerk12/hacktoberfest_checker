@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 enum PullRequestState {
   open,
-  closed
+  closed,
 }
 
 class PullRequest {
