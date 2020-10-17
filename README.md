@@ -26,3 +26,10 @@ You will find some issues indicating the tasks that need to be done for this pro
 If you eyeball the code a bit you will find A LOT of rough edges. Want to fix them? Send a PR.
 
 Simple, right?
+
+## Screenshots:
+
+![Splash Screen](screens/splash.png)
+![Set User Screen](screens/set_user.png)
+![Pull Requests Screen](screens/pull_reqs.png)
+
