@@ -40,9 +40,10 @@ class HomeScreen extends StatelessWidget {
             );
           }
           if (state is UserDataError){
-
+            // TODO Implement...
           }
 
+          // TODO Fix user is null error thrown sometimes. Needs testing.
           UserDataLoaded st = state;
           return Container(
             padding: EdgeInsets.only(top: 10),

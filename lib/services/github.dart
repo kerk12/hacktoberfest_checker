@@ -19,6 +19,7 @@ class GitHubService {
 
   GitHubService(this.username);
 
+  // TODO What happens if the Wi-Fi is Disconnected and/or no data?
   Future<List<PullRequest>> getPRs() async {
     String url = "https://api.github.com/search/issues?q=author:${username}%20type:pr%20created:%3E2020-09-30";
 
@@ -44,6 +45,7 @@ class GitHubService {
         belongsToHFRepo = await getBelongsToHFRepo(repoData["repoOwner"], repoData["repoName"]);
       }
 
+      // TODO add invalid PR identification.
       DateTime closedAt = DateTime.parse(pr["closed_at"]);
 
       prs.add(PullRequest(
