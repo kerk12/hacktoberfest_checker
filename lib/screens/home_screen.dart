@@ -12,7 +12,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Hacktoberfest Checker"),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: () async {
+                SharedPreferences sp = await SharedPreferences.getInstance();
+                UserdataBloc udb = BlocProvider.of<UserdataBloc>(context);
+                udb.add(RequestSetUser(username: sp.getString("github_username")));
+              },
+              child: Icon(
+                Icons.refresh,
+              ),
+            ),
+          )
+        ],
+      ),
       body: BlocBuilder<UserdataBloc, UserDataState>(
         builder: (context, state) {
           if (state is UserDataLoading){
