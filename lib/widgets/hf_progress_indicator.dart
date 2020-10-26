@@ -1,44 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:hacktoberfest_checker/models/pull_request.dart';
 import 'package:hacktoberfest_checker/models/user.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class HacktoberfestProgressIndicator extends StatelessWidget {
   User user;
   List<PullRequest> pull_requests;
 
-  List<Widget> _makeProgressBar() {
-    List<Widget> progressBar = [];
-    for (int i = 0; i < 4; i++) {
-      try {
-        PullRequest pr = pull_requests[i];
-        progressBar.add(Flexible(
-          flex: 1,
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: Colors.purpleAccent,
-                  width: 0.3),
-              color: pr.hasMatured() ? Colors.purple : Colors.orange,
+  Widget _makeProgressBar() {
+    int currentPR = this.pull_requests.length;
+    currentPR = currentPR > 4 ? 4 : currentPR;
+    return SfRadialGauge(
+      axes: <RadialAxis>[
+        RadialAxis(
+            minimum: 0,
+            maximum: 4,
+            showLabels: false,
+            showTicks: false,
+            axisLineStyle: AxisLineStyle(
+              thickness: 0.2,
+              cornerStyle: CornerStyle.bothCurve,
+              color: Colors.purple[100],
+              thicknessUnit: GaugeSizeUnit.factor,
             ),
-          ),
-        ));
-      } on RangeError {
-        progressBar.add(Flexible(
-          flex: 1,
-          child: Container(
-            color: Colors.white,
-          ),
-        ));
-      }
-    }
-    return progressBar;
+            pointers: <GaugePointer>[
+              RangePointer(
+                color: Colors.purple[200],
+                value: currentPR.toDouble(),
+                cornerStyle: CornerStyle.bothCurve,
+                width: 0.2,
+                sizeUnit: GaugeSizeUnit.factor,
+              )
+            ],
+            annotations: <GaugeAnnotation>[
+              GaugeAnnotation(
+                positionFactor: 0,
+                angle: 90,
+                widget: Text(
+                  currentPR.toStringAsFixed(0) +
+                  '/4',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ])
+      ],
+    );
   }
 
-
-  HacktoberfestProgressIndicator({
-    @required this.user,
-    @required this.pull_requests
-  });
+  HacktoberfestProgressIndicator(
+      {@required this.user, @required this.pull_requests});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +70,7 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
         completedPRsText = "Almost There! 3/4 Completed!";
         break;
       case 4:
-        completedPRsText = "You have completed the Hacktoberfest Challenge!";
+        completedPRsText = "You have completed the Hacktoberfest !";
         break;
     }
     int indicatedPRs;
@@ -68,53 +79,30 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
     } else
       indicatedPRs = completedPRs;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-      // height: MediaQuery
-      //     .of(context)
-      //     .size
-      //     .height * 0.15,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width * 0.7,
-      padding: EdgeInsets.symmetric(
-          vertical: MediaQuery
-              .of(context)
-              .size
-              .height * 0.02,
-          horizontal: MediaQuery
-              .of(context)
-              .size
-              .width * 0.1
-      ),
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.purple),
-          color: const Color.fromARGB(255, 255, 138, 226),
-          borderRadius: BorderRadius.all(Radius.circular(10))
-      ),
-      child: Column(
-        children: [
-          Flexible(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.purple),
-                  borderRadius: BorderRadius.all(Radius.circular(10))
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Row(
-                  children: _makeProgressBar(),
-                ),
-              ),
-            ),
-          ),
-          Flexible(
-              flex: 2,
-              child: Center(child: Text(completedPRsText))
-          )
-        ],
-      ),
-    );
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+        height: MediaQuery.of(context).size.height * 0.4,
+        width: MediaQuery.of(context).size.width * 0.65,
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02,
+            horizontal: MediaQuery.of(context).size.width * 0.1),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.purple[50]),
+            color: Colors.purple[50],
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Stack(children: [
+          Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  child: _makeProgressBar())),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: AutoSizeText(
+                completedPRsText,
+                style: TextStyle(fontSize: 15),
+                maxLines: 2,
+              ))
+        ]));
   }
 }
