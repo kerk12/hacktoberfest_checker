@@ -28,10 +28,12 @@ class HomeScreen extends StatelessWidget {
                 Icons.refresh,
               ),
             ),
-          )
-          // TODO Add a "change user" button.
-          // The button should redirect to the SetUserScreen and remove the old username from SP.
+          ),
         ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil("/setUser", (route) => false),
+        ),
       ),
       body: BlocBuilder<UserdataBloc, UserDataState>(
         builder: (context, state) {
