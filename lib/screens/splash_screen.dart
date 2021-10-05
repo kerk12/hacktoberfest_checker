@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
           SharedPreferences sp = await SharedPreferences.getInstance();
           String route;
           if (sp.containsKey("github_username")) {
-            route = "/";
+            route = "/home";
             UserdataBloc udb = BlocProvider.of<UserdataBloc>(context);
             udb.add(
               RequestSetUser(username: sp.getString("github_username"))
