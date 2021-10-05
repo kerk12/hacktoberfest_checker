@@ -1,9 +1,8 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:hacktoberfest_checker/models/pull_request.dart';
 import 'package:hacktoberfest_checker/models/user.dart';
-
-import 'package:http/http.dart' as http;
 
 class InvalidUserException implements Exception {
   InvalidUserException();
@@ -21,10 +20,10 @@ class GitHubService {
 
   // TODO What happens if the Wi-Fi is Disconnected and/or no data?
   Future<List<PullRequest>> getPRs() async {
-    String url = "https://api.github.com/search/issues?q=author:${username}%20type:pr%20created:%3E2020-09-30";
+    String url = "https://api.github.com/search/issues?q=author:${username}%20type:pr%20created:%3E2021-09-30";
 
-    var response = await http.get(url);
-    var json = jsonDecode(response.body);
+    var response = await Dio().get(url);
+    var json = jsonDecode(response.data);
     List<PullRequest> prs = [];
     for (Map<String, dynamic> pr in json["items"]) {
       // Identify labels.
@@ -64,10 +63,10 @@ class GitHubService {
   Future<User> getUserData() async{
     String url = "https://api.github.com/users/${username}";
 
-    var response = await http.get(url);
+    var response = await Dio().get(url);
     if (response.statusCode != 200)
       throw InvalidUserException();
-    Map<String,dynamic> json = jsonDecode(response.body);
+    Map<String,dynamic> json = jsonDecode(response.data);
 
     return User(
       username: username,
@@ -77,11 +76,11 @@ class GitHubService {
   }
 
   Future<Map<String, String>> getRepoData(String repoUrl) async {
-    var response = await http.get(repoUrl);
+    var response = await Dio().get(repoUrl);
     if (response.statusCode != 200)
       throw ApiError();
 
-    var json = jsonDecode(response.body);
+    var json = jsonDecode(response.data);
     String repoName = json["name"];
     String repoOwner = json["owner"]["login"];
     return {
@@ -92,12 +91,12 @@ class GitHubService {
 
   Future<bool> getBelongsToHFRepo(String repoOwner, String repoName) async {
     String url = "https://api.github.com/repos/${repoOwner}/${repoName}/topics";
-    var response = await http.get(url, headers: {"Accept": "application/vnd.github.mercy-preview+json"});
+    var response = await Dio().get(url, options: Options(headers: {"Accept": "application/vnd.github.mercy-preview+json"}));
 
     if (response.statusCode != 200)
       throw ApiError();
 
-    var json = jsonDecode(response.body);
+    var json = jsonDecode(response.data);
     List<String> topics = json["names"];
     return (topics.contains("Hacktoberfest"));
   }

@@ -23,11 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^6.0.6
-  equatable: ^1.2.5
-  http: ^0.12.2
-  shared_preferences: ^0.5.12
-  syncfusion_flutter_gauges: ^18.2.44
+  flutter_bloc: ^7.3.0
+  equatable: ^2.0.3
+  dio: ^4.0.0
+  shared_preferences: ^2.0.8
+  syncfusion_flutter_gauges: ^19.3.43
   auto_size_text: ^2.1.0
 
 
