@@ -53,10 +53,9 @@ class HacktoberfestChecker extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: "/splash",
       routes: {
-        "/splash": (context) => SplashScreen(),
-        "/": (context) => HomeScreen(),
+        "/": (context) => SplashScreen(),
+        "/home": (context) => HomeScreen(),
         "/setUser": (context) => SetUserScreen(),
         // "/setUser"
       },
