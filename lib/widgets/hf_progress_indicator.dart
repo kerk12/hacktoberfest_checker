@@ -21,12 +21,13 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
             axisLineStyle: AxisLineStyle(
               thickness: 0.2,
               cornerStyle: CornerStyle.bothCurve,
-              color: Colors.purple[100],
+              color: Color.fromRGBO(43, 53, 49, 1),
               thicknessUnit: GaugeSizeUnit.factor,
             ),
             pointers: <GaugePointer>[
               RangePointer(
-                color: Colors.purple[200],
+                color: currentPR < 4 ? Color.fromRGBO(103, 118, 98, 1) :
+                  Color.fromRGBO(247, 71, 0, 1),
                 value: currentPR.toDouble(),
                 cornerStyle: CornerStyle.bothCurve,
                 width: 0.2,
@@ -80,14 +81,14 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
       indicatedPRs = completedPRs;
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-        height: MediaQuery.of(context).size.height * 0.4,
+        // height: MediaQuery.of(context).size.height * 0.4,
         width: MediaQuery.of(context).size.width * 0.65,
         padding: EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.height * 0.02,
             horizontal: MediaQuery.of(context).size.width * 0.1),
         decoration: BoxDecoration(
             border: Border.all(color: Colors.purple[50]),
-            color: Colors.purple[50],
+            color: Color.fromRGBO(219, 232, 217, 1),
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Stack(children: [
           Align(
@@ -101,6 +102,7 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
               child: AutoSizeText(
                 completedPRsText,
                 style: TextStyle(fontSize: 15),
+                textAlign: TextAlign.center,
                 maxLines: 2,
               ))
         ]));

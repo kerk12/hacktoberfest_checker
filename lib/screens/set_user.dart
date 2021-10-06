@@ -20,8 +20,8 @@ class _SetUserScreenState extends State<SetUserScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/Icon_new.png"),
-            fit: BoxFit.cover,
+            image: AssetImage("assets/hf2020_logo_blur.png"),
+            fit: BoxFit.contain,
           ),
         ),
         padding: EdgeInsets.all(50),
@@ -47,7 +47,7 @@ class _SetUserScreenState extends State<SetUserScreen> {
                 if (state is UserDataLoaded){
                   SharedPreferences sp = await SharedPreferences.getInstance();
                   sp.setString("github_username", _usernameController.value.text);
-                  Navigator.of(context).pushNamedAndRemoveUntil("/", (route) => false);
+                  Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
                 }
               },
               child: BlocBuilder<UserdataBloc, UserDataState> (

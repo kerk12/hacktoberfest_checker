@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
 import 'package:hacktoberfest_checker/widgets/hf_progress_indicator.dart';
 import 'package:hacktoberfest_checker/widgets/pr_list.dart';
@@ -52,16 +53,22 @@ class HomeScreen extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  Flexible(
+                  Expanded(
                     flex: 4,
-                    child: Image.asset("assets/Logo Sponsors Light.png")
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: SvgPicture.asset(
+                          "assets/HF2021_Logo.svg",
+                          semanticsLabel: 'Hacktoberfest 2021 Logo'
+                      ),
+                    )
                   ),
-                  Flexible(
+                  Expanded(
                     flex: 4,
                     child: HacktoberfestProgressIndicator(user: st.user, pull_requests: st.prs)
                   ),
-                  Flexible(
-                    flex: 2,
+                  Expanded(
+                    flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text(
@@ -75,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                   ),
 
                   Flexible(
-                    flex: 3,
+                    flex: 4,
                     child:PRList(pullRequests: st.prs)
                   ),
                 ],
