@@ -23,7 +23,7 @@ class GitHubService {
     String url = "https://api.github.com/search/issues?q=author:${username}%20type:pr%20created:%3E2021-09-30";
 
     var response = await Dio().get(url);
-    var json = jsonDecode(response.data);
+    var json = response.data;
     List<PullRequest> prs = [];
     for (Map<String, dynamic> pr in json["items"]) {
       // Identify labels.
@@ -34,10 +34,9 @@ class GitHubService {
 
       bool belongsToHFRepo = false;
       // Search in labels for hacktoberfest-accepted.
-      for (String l in labels){
-        if (l == "hacktoberfest-accepted")
-          belongsToHFRepo = true;
-      }
+      if (labels.contains("hacktoberfest-accepted"))
+        belongsToHFRepo = true;
+
       // If still not found, search within the repo it belongs for the Hacktoberfest topic.
       if (!belongsToHFRepo) {
         Map<String, String> repoData = await getRepoData(pr["repository_url"]);
@@ -66,12 +65,11 @@ class GitHubService {
     var response = await Dio().get(url);
     if (response.statusCode != 200)
       throw InvalidUserException();
-    Map<String,dynamic> json = jsonDecode(response.data);
 
     return User(
       username: username,
-      realName: json["name"],
-      profileUrl: json["html_url"]
+      realName: response.data["name"],
+      profileUrl: response.data["html_url"]
     );
   }
 
@@ -80,7 +78,7 @@ class GitHubService {
     if (response.statusCode != 200)
       throw ApiError();
 
-    var json = jsonDecode(response.data);
+    var json = response.data;
     String repoName = json["name"];
     String repoOwner = json["owner"]["login"];
     return {
@@ -96,8 +94,8 @@ class GitHubService {
     if (response.statusCode != 200)
       throw ApiError();
 
-    var json = jsonDecode(response.data);
-    List<String> topics = json["names"];
-    return (topics.contains("Hacktoberfest"));
+    var json = response.data;
+    List topics = json["names"];
+    return (topics.contains("Hacktoberfest") || topics.contains("hacktoberfest"));
   }
 }
