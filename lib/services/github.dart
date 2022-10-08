@@ -12,7 +12,6 @@ class ApiError implements Exception {
   ApiError();
 }
 
-
 class GitHubService {
   final String username;
 
@@ -20,7 +19,8 @@ class GitHubService {
 
   // TODO What happens if the Wi-Fi is Disconnected and/or no data?
   Future<List<PullRequest>> getPRs() async {
-    String url = "https://api.github.com/search/issues?q=author:${username}%20type:pr%20created:%3E2021-09-30";
+    String url =
+        "https://api.github.com/search/issues?q=author:${username}%20type:pr%20created:%3E2021-09-30";
 
     var response = await Dio().get(url);
     var json = response.data;
@@ -28,19 +28,19 @@ class GitHubService {
     for (Map<String, dynamic> pr in json["items"]) {
       // Identify labels.
       List<String> labels = [];
-      for (Map<String, dynamic> l in pr["labels"]){
+      for (Map<String, dynamic> l in pr["labels"]) {
         labels.add(l["name"]);
       }
 
       bool belongsToHFRepo = false;
       // Search in labels for hacktoberfest-accepted.
-      if (labels.contains("hacktoberfest-accepted"))
-        belongsToHFRepo = true;
+      if (labels.contains("hacktoberfest-accepted")) belongsToHFRepo = true;
 
       // If still not found, search within the repo it belongs for the Hacktoberfest topic.
       if (!belongsToHFRepo) {
         Map<String, String> repoData = await getRepoData(pr["repository_url"]);
-        belongsToHFRepo = await getBelongsToHFRepo(repoData["repoOwner"], repoData["repoName"]);
+        belongsToHFRepo = await getBelongsToHFRepo(
+            repoData["repoOwner"], repoData["repoName"]);
       }
 
       // TODO add invalid PR identification.
@@ -59,43 +59,39 @@ class GitHubService {
     return prs;
   }
 
-  Future<User> getUserData() async{
+  Future<User> getUserData() async {
     String url = "https://api.github.com/users/${username}";
 
     var response = await Dio().get(url);
-    if (response.statusCode != 200)
-      throw InvalidUserException();
+    if (response.statusCode != 200) throw InvalidUserException();
 
     return User(
-      username: username,
-      realName: response.data["name"],
-      profileUrl: response.data["html_url"]
-    );
+        username: username,
+        realName: response.data["name"],
+        profileUrl: response.data["html_url"]);
   }
 
   Future<Map<String, String>> getRepoData(String repoUrl) async {
     var response = await Dio().get(repoUrl);
-    if (response.statusCode != 200)
-      throw ApiError();
+    if (response.statusCode != 200) throw ApiError();
 
     var json = response.data;
     String repoName = json["name"];
     String repoOwner = json["owner"]["login"];
-    return {
-      "repoName": repoName,
-      "repoOwner": repoOwner
-    };
+    return {"repoName": repoName, "repoOwner": repoOwner};
   }
 
   Future<bool> getBelongsToHFRepo(String repoOwner, String repoName) async {
     String url = "https://api.github.com/repos/${repoOwner}/${repoName}/topics";
-    var response = await Dio().get(url, options: Options(headers: {"Accept": "application/vnd.github.mercy-preview+json"}));
+    var response = await Dio().get(url,
+        options: Options(
+            headers: {"Accept": "application/vnd.github.mercy-preview+json"}));
 
-    if (response.statusCode != 200)
-      throw ApiError();
+    if (response.statusCode != 200) throw ApiError();
 
     var json = response.data;
     List topics = json["names"];
-    return (topics.contains("Hacktoberfest") || topics.contains("hacktoberfest"));
+    return (topics.contains("Hacktoberfest") ||
+        topics.contains("hacktoberfest"));
   }
 }

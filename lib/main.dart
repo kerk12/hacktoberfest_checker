@@ -7,24 +7,18 @@ import 'package:hacktoberfest_checker/screens/set_user.dart';
 import 'package:hacktoberfest_checker/screens/splash_screen.dart';
 
 void main() {
-
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider<SplashBloc>(
-          create: (context) {
-            return SplashBloc();
-          },
-        ),
-        BlocProvider<UserdataBloc>(
-          create: (context) {
-            return UserdataBloc();
-          },
-        ),
-      ],
-      child: HacktoberfestChecker()
-    )
-  );
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<SplashBloc>(
+      create: (context) {
+        return SplashBloc();
+      },
+    ),
+    BlocProvider<UserdataBloc>(
+      create: (context) {
+        return UserdataBloc();
+      },
+    ),
+  ], child: HacktoberfestChecker()));
 }
 
 class HacktoberfestChecker extends StatelessWidget {
@@ -32,6 +26,7 @@ class HacktoberfestChecker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -45,9 +40,7 @@ class HacktoberfestChecker extends StatelessWidget {
         // is not restarted.
         primaryColor: Colors.white,
         accentColor: Colors.black87,
-        textTheme: TextTheme(
-
-        ),
+        textTheme: TextTheme(),
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -62,5 +55,3 @@ class HacktoberfestChecker extends StatelessWidget {
     );
   }
 }
-
-

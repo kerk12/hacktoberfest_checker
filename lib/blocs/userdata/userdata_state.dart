@@ -1,6 +1,7 @@
 part of 'userdata_bloc.dart';
 
-enum UserDataErrorType  { // TODO Rename it to something more relevant.
+enum UserDataErrorType {
+  // TODO Rename it to something more relevant.
   userNotFound,
   apiError,
 }
@@ -34,5 +35,4 @@ class UserDataError extends UserDataState {
   @override
   // TODO: implement props
   List<Object> get props => [error];
-
 }
