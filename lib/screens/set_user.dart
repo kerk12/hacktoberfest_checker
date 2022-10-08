@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
+import 'package:hacktoberfest_checker/constants/strings.dart';
 import 'package:hacktoberfest_checker/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,17 +35,28 @@ class _SetUserScreenState extends State<SetUserScreen> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            Text("Set your Username:",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                )),
+            SvgPicture.asset(set),
+            Text(
+              "Set your Username:",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+                fontFamily: "Robotocondensed",
+                fontWeight: FontWeight.w900,
+              ),
+            ),
             SizedBox(
               width: double.infinity,
               height: 50,
             ),
-            Text("Type your GitHub Username in the field below."),
+            Text(
+              "Type your GitHub Username in\n the field below.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Robotocondensed',
+                fontSize: 18,
+              ),
+            ),
             SizedBox(
               width: double.infinity,
               height: 50,

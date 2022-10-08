@@ -82,7 +82,10 @@ class PRList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(1.0)),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(10.0),
+          topLeft: Radius.circular(10.0),
+        ),
         color: Color(0xFFFF7643),
       ),
       child: ListView.builder(

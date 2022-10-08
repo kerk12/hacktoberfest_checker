@@ -1,2 +1,2 @@
 const splash = 'assets/X - 7.png';
-const kPrimaryColor = '';
+const set= 'assets/HF2021_Logo_1.svg';
