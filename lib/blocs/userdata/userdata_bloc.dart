@@ -27,7 +27,6 @@ class UserdataBloc extends Bloc<UserdataEvent, UserDataState> {
       } on InvalidUserException {
         yield UserDataError(UserDataErrorType.userNotFound);
       }
-
     }
     if (event is SetUser)
       yield UserDataLoaded(user: event.user, prs: event.prs);

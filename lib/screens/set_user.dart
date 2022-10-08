@@ -23,42 +23,42 @@ class _SetUserScreenState extends State<SetUserScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          // image: DecorationImage(
-          //   // image: AssetImage("assets/hf2020_logo_blur.png"),
-          //   fit: BoxFit.contain,
-          // ),
-        ),
+            // image: DecorationImage(
+            //   // image: AssetImage("assets/hf2020_logo_blur.png"),
+            //   fit: BoxFit.contain,
+            // ),
+            ),
         padding: EdgeInsets.all(45),
         alignment: Alignment.center,
         child: ListView(
           shrinkWrap: true,
           children: [
-             Text(
-                "Set your Username:",
+            Text("Set your Username:",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w900,
-                )
-            ),
+                )),
             SizedBox(
               width: double.infinity,
               height: 50,
             ),
             Text("Type your GitHub Username in the field below."),
-             SizedBox(
+            SizedBox(
               width: double.infinity,
               height: 50,
             ),
             BlocListener<UserdataBloc, UserDataState>(
               listener: (context, state) async {
-                if (state is UserDataLoaded){
+                if (state is UserDataLoaded) {
                   SharedPreferences sp = await SharedPreferences.getInstance();
-                  sp.setString("github_username", _usernameController.value.text);
-                  Navigator.of(context).pushNamedAndRemoveUntil("/home", (route) => false);
+                  sp.setString(
+                      "github_username", _usernameController.value.text);
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil("/home", (route) => false);
                 }
               },
-              child: BlocBuilder<UserdataBloc, UserDataState> (
+              child: BlocBuilder<UserdataBloc, UserDataState>(
                 builder: (context, state) {
                   return Form(
                     key: _formKey,
@@ -68,49 +68,61 @@ class _SetUserScreenState extends State<SetUserScreen> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                              vertical: 10.0 ,horizontal: 0
-                            ),
+                                vertical: 10.0, horizontal: 0),
                             child: TextFormField(
                               controller: _usernameController,
-                              style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w900),
+                              style: TextStyle(
+                                  fontSize: 15.0, fontWeight: FontWeight.w900),
                               decoration: InputDecoration(
                                   hintText: "Username (eg. kerk12)",
                                   labelText: "Username",
-                                  fillColor: Colors.black ,
-                                  focusColor: Colors.black ,
+                                  fillColor: Colors.black,
+                                  focusColor: Colors.black,
                                   prefixIcon: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: FaIcon(FontAwesomeIcons.github, size: 40.0, color: Colors.black,),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.github,
+                                      size: 40.0,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                   hoverColor: Colors.blue,
-                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(4.0)), borderSide: BorderSide(width: 20.0))
-                              ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(4.0)),
+                                      borderSide: BorderSide(width: 20.0))),
                               //  TODO Check if username is empty
                             ),
                           ),
                           SizedBox(
                             width: double.infinity,
-                            height: (state is UserDataError && state.error == UserDataErrorType.userNotFound) ? 10 : 0,
+                            height: (state is UserDataError &&
+                                    state.error ==
+                                        UserDataErrorType.userNotFound)
+                                ? 10
+                                : 0,
                           ),
-                          Opacity(          
+                          Opacity(
                             child: Text("Invalid username provided",
-                              style: TextStyle(
-                                color: Colors.red
-                              )
-                            ),
-                            opacity: (state is UserDataError && state.error == UserDataErrorType.userNotFound) ? 1 : 0,
+                                style: TextStyle(color: Colors.red)),
+                            opacity: (state is UserDataError &&
+                                    state.error ==
+                                        UserDataErrorType.userNotFound)
+                                ? 1
+                                : 0,
                           ),
                           SizedBox(
                             width: double.infinity,
                             height: 50,
                           ),
                           RaisedButton.icon(
-                            onPressed:() async {
-                              if (state is UserDataLoading)
-                                return;
-                              if (_formKey.currentState.validate()){
-                                final userdatabloc = BlocProvider.of<UserdataBloc>(context);
-                                userdatabloc.add(RequestSetUser(username:_usernameController.value.text));
+                            onPressed: () async {
+                              if (state is UserDataLoading) return;
+                              if (_formKey.currentState.validate()) {
+                                final userdatabloc =
+                                    BlocProvider.of<UserdataBloc>(context);
+                                userdatabloc.add(RequestSetUser(
+                                    username: _usernameController.value.text));
                               }
                             },
                             color: Color(0xFFFF7643),

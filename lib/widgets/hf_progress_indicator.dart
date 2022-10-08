@@ -105,10 +105,10 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
         }
         break;
       case 4:
-      {
-        completedPRsText1 = " ";
-        completedPRsText2 = "You have completed the Hacktoberfest !";
-      }
+        {
+          completedPRsText1 = " ";
+          completedPRsText2 = "You have completed the Hacktoberfest !";
+        }
         break;
     }
     int indicatedPRs;
@@ -132,7 +132,8 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: AutoSizeText(
                 completedPRsText1,
-                style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: 'Gemunu'),
+                style: TextStyle(
+                    fontSize: 20, color: Colors.white, fontFamily: 'Gemunu'),
                 textAlign: TextAlign.center,
                 maxLines: 2,
               )),
@@ -146,7 +147,8 @@ class HacktoberfestProgressIndicator extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: AutoSizeText(
                 completedPRsText2,
-                style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: 'Gemunu'),
+                style: TextStyle(
+                    fontSize: 20, color: Colors.white, fontFamily: 'Gemunu'),
                 textAlign: TextAlign.center,
                 maxLines: 2,
               ))
