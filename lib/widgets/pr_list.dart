@@ -14,14 +14,16 @@ class _PRListItem extends StatelessWidget {
         prStatus = Text(
           "Open/Pending",
           style: TextStyle(
-            color: Colors.grey,
+            color: Colors.blue,
+            fontFamily: 'Gemunu',
           ),
         );
       } else if (pullRequest.hasMatured()){
         prStatus = Text(
           "Accepted",
           style: TextStyle(
-            color: Colors.purpleAccent,
+            color: Colors.yellow,
+            fontFamily: 'Gemunu',
           ),
         );
       } else {
@@ -29,6 +31,7 @@ class _PRListItem extends StatelessWidget {
           "In Review/Not Mature",
           style: TextStyle(
             color: Colors.orange,
+            fontFamily: 'Gemunu',
           ),
         );
       }
@@ -38,21 +41,27 @@ class _PRListItem extends StatelessWidget {
         "Ineligible Repository",
         style: TextStyle(
           color: Colors.grey,
+          fontFamily: 'Gemunu',
         ),
       );
     }
 
     return Card(
+      color: Color(0xFFFF7643),
       child: ListTile(
         // TODO Add Repo Image
         // TODO On Click, open up a browser window and show the PR to the user.
-        title: Text(pullRequest.prUrl),
+        title: Text(pullRequest.prUrl,
+        style: TextStyle(color: Colors.white),),
         subtitle: Row(
           children: [
+
             Text(
               "Status: ",
               style: TextStyle(
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'Gemunu',
               ),
             ),
             prStatus
@@ -71,11 +80,16 @@ class PRList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return _PRListItem(pullRequest: pullRequests[index]);
-      },
-      itemCount: pullRequests.length,
+    return Container(
+decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(1.0)),  
+      color: Color(0xFFFF7643),
+),
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return _PRListItem(pullRequest: pullRequests[index]);
+        },
+        itemCount: pullRequests.length,
+      ),
     );
   }
 }

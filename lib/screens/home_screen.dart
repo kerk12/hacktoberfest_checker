@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
+import 'package:hacktoberfest_checker/constants/strings.dart';
 import 'package:hacktoberfest_checker/widgets/hf_progress_indicator.dart';
 import 'package:hacktoberfest_checker/widgets/pr_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,9 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hacktoberfest Checker"),
+        title: Text("Hacktoberfest Checker",
+        style: TextStyle(fontFamily: 'Gemunu', color: Colors.white, fontSize: 30 ),),
+        backgroundColor: Color(0xFFFF7643),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20),
@@ -44,7 +47,6 @@ class HomeScreen extends StatelessWidget {
           if (state is UserDataError){
             // TODO Implement...
           }
-
           // TODO Fix user is null error thrown sometimes. Needs testing.
           UserDataLoaded st = state;
           return Container(
@@ -75,6 +77,7 @@ class HomeScreen extends StatelessWidget {
                         "Pull Requests for user ${st.user.username}:",
                         style: TextStyle(
                           fontSize: 18,
+                          fontFamily: 'Gemunu',
                           fontWeight: FontWeight.bold
                         ),
                       ),
