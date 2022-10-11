@@ -11,25 +11,18 @@ part 'userdata_event.dart';
 part 'userdata_state.dart';
 
 class UserdataBloc extends Bloc<UserdataEvent, UserDataState> {
-  UserdataBloc() : super(null);
-
-  @override
-  Stream<UserDataState> mapEventToState(
-    UserdataEvent event,
-  ) async* {
-    if (event is RequestSetUser) {
-      yield UserDataLoading();
+  UserdataBloc() : super(null) {
+    on<RequestSetUser>((event, emit) async {
+      emit(UserDataLoading());
       GitHubService ghs = GitHubService(event.username);
       try {
         User u = await ghs.getUserData();
         List<PullRequest> prs = await ghs.getPRs();
-        yield UserDataLoaded(user: u, prs: prs);
+        emit(UserDataLoaded(user: u, prs: prs));
       } on InvalidUserException {
-        yield UserDataError(UserDataErrorType.userNotFound);
+        emit(UserDataError(UserDataErrorType.userNotFound));
       }
-
-    }
-    if (event is SetUser)
-      yield UserDataLoaded(user: event.user, prs: event.prs);
+    });
+    on<SetUser>(((event, emit) => emit(UserDataLoaded(user: event.user, prs: event.prs))));
   }
 }
