@@ -7,15 +7,10 @@ part 'splash_event.dart';
 part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
-  SplashBloc() : super(SplashInitial());
-
-  @override
-  Stream<SplashState> mapEventToState(
-    SplashEvent event,
-  ) async* {
-    if (event is LoadApp) {
+  SplashBloc() : super(SplashInitial()) {
+    on<LoadApp>((event, emit) async {
       await Future.delayed(Duration(seconds: 3));
-      yield AppLoaded();
-    }
+      emit(AppLoaded());
+    });
   }
 }

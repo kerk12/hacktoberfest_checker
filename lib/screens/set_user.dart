@@ -80,7 +80,7 @@ class _SetUserScreenState extends State<SetUserScreen> {
                           width: double.infinity,
                           height: 50,
                         ),
-                        RaisedButton.icon(
+                        ElevatedButton.icon(
                           onPressed:() async {
                             if (state is UserDataLoading)
                               return;
@@ -90,7 +90,6 @@ class _SetUserScreenState extends State<SetUserScreen> {
                             }
                           },
 
-                          color: Colors.blue,
                           icon: Icon(Icons.save),
                           label: Text("Set"),
                         )
