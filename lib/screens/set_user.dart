@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
-import 'package:hacktoberfest_checker/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SetUserScreen extends StatefulWidget {

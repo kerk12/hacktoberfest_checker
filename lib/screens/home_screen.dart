@@ -5,7 +5,6 @@ import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
 import 'package:hacktoberfest_checker/widgets/hf_progress_indicator.dart';
 import 'package:hacktoberfest_checker/widgets/pr_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class HomeScreen extends StatelessWidget {
 

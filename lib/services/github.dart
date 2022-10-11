@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:hacktoberfest_checker/models/pull_request.dart';
@@ -20,7 +19,7 @@ class GitHubService {
 
   // TODO What happens if the Wi-Fi is Disconnected and/or no data?
   Future<List<PullRequest>> getPRs() async {
-    String url = "https://api.github.com/search/issues?q=author:${username}%20type:pr%20created:%3E2021-09-30";
+    String url = "https://api.github.com/search/issues?q=author:$username%20type:pr%20created:%3E2021-09-30";
 
     var response = await Dio().get(url);
     var json = response.data;
@@ -60,7 +59,7 @@ class GitHubService {
   }
 
   Future<User> getUserData() async{
-    String url = "https://api.github.com/users/${username}";
+    String url = "https://api.github.com/users/$username";
 
     var response = await Dio().get(url);
     if (response.statusCode != 200)
@@ -88,7 +87,7 @@ class GitHubService {
   }
 
   Future<bool> getBelongsToHFRepo(String repoOwner, String repoName) async {
-    String url = "https://api.github.com/repos/${repoOwner}/${repoName}/topics";
+    String url = "https://api.github.com/repos/$repoOwner/$repoName/topics";
     var response = await Dio().get(url, options: Options(headers: {"Accept": "application/vnd.github.mercy-preview+json"}));
 
     if (response.statusCode != 200)
