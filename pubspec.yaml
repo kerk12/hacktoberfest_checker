@@ -2,6 +2,7 @@ name: hacktoberfest_checker
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
 version: 1.0.0+1
 
 environment:
@@ -18,7 +19,12 @@ dependencies:
   auto_size_text: ^2.1.0
   flutter_svg: ^0.22.0
 
- cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.0
+  font_awesome_flutter: ^10.2.1
+  material: ^1.0.0+2
+  step_progress_indicator: ^0.2.5+8
+
+
 
 dev_dependencies:
   flutter_test:
@@ -26,8 +32,20 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+
+  
+
   uses-material-design: true
 
   assets:
-     - assets/
-  
+
+    - assets/
+ 
+  fonts:
+    - family: Gemunu
+      fonts:
+        - asset: assets/GemunuLibre-Medium.ttf
+    - family: Robotocondensed
+      fonts:
+        - asset: assets/Roboto_Condensed/RobotoCondensed-Regular.ttf
+

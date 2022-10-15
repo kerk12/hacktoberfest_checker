@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hacktoberfest_checker/blocs/splash/splash_bloc.dart';
 import 'package:hacktoberfest_checker/blocs/userdata/userdata_bloc.dart';
+import 'package:hacktoberfest_checker/constants/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,7 +40,18 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Scaffold(
         body: Container(
           // TODO Make a proper splash screen.
-          child: Center(child: Text("This is where the Splash Screen should go.")),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Center(child: Text("This is where the Splash Screen should go.")),
+              Center(
+                child: Image.asset(
+                  splash,
+                  scale: 0.2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
